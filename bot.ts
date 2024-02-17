@@ -32,19 +32,15 @@ setInterval(async () => {
         reportId: report.id,
       })
     }
-    else if(report.category === 'spam') {
-      console.log(`Reported ${report.targetAccount.acct} is not a bot`);
-      console.log(JSON.stringify(report));
-    }
   }
-}, 10_000);
+}, 60_000);
 
-// for await(const event of streaming.public.subscribe()) {
-//   if(event.event === 'update' && checkIsSpam(event.payload)) {
-//     console.log(`${event.payload.account.acct} is a bot`);
-//     rest.v1.admin.accounts.$select(event.payload.account.id).action.create({
-//       type: 'suspend',
-//       text: 'Mention Bot (Auto)'
-//     })
-//   }
-// }
+for await(const event of streaming.public.subscribe()) {
+  if(event.event === 'update' && checkIsSpam(event.payload)) {
+    console.log(`${event.payload.account.acct} is a bot`);
+    rest.v1.admin.accounts.$select(event.payload.account.id).action.create({
+      type: 'suspend',
+      text: 'Mention Bot (Auto)'
+    })
+  }
+}
