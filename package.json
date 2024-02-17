@@ -5,7 +5,7 @@
 		"tsx": "^4.7.1"
 	},
 	"scripts": {
-		"start": "tsx index.js"
+		"start": "tsx bot.ts"
 	},
 	"type": "module"
 }
