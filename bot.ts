@@ -12,12 +12,11 @@ const streaming = createStreamingAPIClient({
 });
 
 function checkIsSpam(status: mastodon.v1.Status) {
-  //console.log(status.inReplyToId, status.account.acct, status.account.username, status.account.displayName, status.mentions.length, dayjs(status.account.createdAt).isSame(dayjs(), 'day'), /^[a-z0-9]{10}$/.test(status.account.username));
   return status.inReplyToId === null &&
   status.account.acct.includes('@') &&
   (status.account.username === status.account.displayName || status.account.displayName.length === 0) &&
   status.mentions.length >= 1 &&
-  dayjs(status.account.createdAt).isSame(dayjs(), 'day') &&
+  dayjs(status.account.createdAt).isAfter(dayjs().subtract(2, 'day'), 'day') &&
   /^[a-z0-9]{10}$/.test(status.account.username);
 }
 
