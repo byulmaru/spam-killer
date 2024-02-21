@@ -16,7 +16,7 @@ function checkIsSpam(status: mastodon.v1.Status) {
   status.account.acct.includes('@') &&
   (status.account.username === status.account.displayName || status.account.displayName.length === 0) &&
   status.mentions.length >= 1 &&
-  dayjs(status.account.createdAt).isAfter(dayjs().subtract(2, 'day'), 'day') &&
+  dayjs(status.account.createdAt).isAfter(dayjs('2024-02-16'), 'day') &&
   /^[a-z0-9]{10}$/.test(status.account.username);
 }
 
